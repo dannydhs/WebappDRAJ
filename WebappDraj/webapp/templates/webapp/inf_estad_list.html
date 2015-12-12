@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>My site</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <style type="text/css">
+        h5{
+            background-color: #43A047;
+            color: #fff;
+            padding: .5px 10px;
+        }
+        p{
+            padding: 5px 10px;
+        }
+        
+        .pd-40{
+            padding: 27px 5px;
+        }
+    </style>
+</head>
+<body>
+	<h1>Datos Estadisticos</h1>
+
+    
+    <h1>Search</h1>
+    <form action="." method="GET">
+        <label for="q">Search: </label>
+        <input type="text" name="q" value="{{ query|escape }}">
+        <input type="submit" value="Search">
+    </form>
+     
+    {% if query %}
+        <h2>Results for "{{ query|escape }}":</h2>
+     
+        {% if results %}
+            <ul>
+            {% for producto in results %}
+                <li>{{ producto|escape }}</l1>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No producto found</p>
+        {% endif %}
+    {% endif %}
+
+    <div class="row container">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <h5 class="pd-40"><b>Principales Productos</b></h5>
+            {% for producto in productos %}
+                <p>{{producto.nombre}}</p>
+            {% endfor %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h5>Enero-Marzo</p></h5>
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
+                            <h5><b>2014</b></h5>
+                            {% for produccion in producciones %}
+                                {% if produccion.periodo_inicial_anio == "2014"%} 
+                                 <p>{{produccion.valor_bruto_pinicial}}</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>   
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <h5><b>2015</b></h5>
+                            {% for produccion in producciones %}
+                                {% if produccion.periodo_final_anio == "2015" %} 
+                                 <p>{{produccion.valorbruto_pfinal}}</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>   
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <h5><b>Var. %</b></h5>
+                            {% for produccion in producciones %}
+                                {% if produccion.periodo_inicial_anio == "2014" %} 
+                                 <p>{{produccion.variacion}}</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <h5><b>Ind. Cant.</b></h5>
+                            {% for produccion in producciones %}
+                                {% if produccion.periodo_inicial_anio == "2014"%} 
+                                 <p>{{produccion.indice_cantidad}}</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>      
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+</body>
+</html>
